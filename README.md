@@ -1,4 +1,4 @@
-NewMediaIntegrationBingo
-========================
+New Media Integration ~ Bingo Game
+===================================
 
-Bingo spel
+Multimediaal spel
