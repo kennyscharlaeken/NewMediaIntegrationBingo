@@ -1,0 +1,5 @@
+D:\PIH\New Media Integration\Project\Bingo\Server\bin\Debug\Server.dll
+D:\PIH\New Media Integration\Project\Bingo\Server\bin\Debug\Server.pdb
+D:\PIH\New Media Integration\Project\Bingo\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
+D:\PIH\New Media Integration\Project\Bingo\Server\obj\Debug\Server.dll
+D:\PIH\New Media Integration\Project\Bingo\Server\obj\Debug\Server.pdb

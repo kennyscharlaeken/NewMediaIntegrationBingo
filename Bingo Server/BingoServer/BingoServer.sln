@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingoServer", "BingoServer.csproj", "{4338F3B7-438F-40A1-B630-B014B470F280}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "..\Server\Server.csproj", "{EAE60D3C-978B-4FF6-864C-2F5AAB22305C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gameplay", "..\Gameplay\Gameplay.csproj", "{548730DE-D9E8-48E4-B43B-48D35D36BE13}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4338F3B7-438F-40A1-B630-B014B470F280}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4338F3B7-438F-40A1-B630-B014B470F280}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4338F3B7-438F-40A1-B630-B014B470F280}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4338F3B7-438F-40A1-B630-B014B470F280}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAE60D3C-978B-4FF6-864C-2F5AAB22305C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAE60D3C-978B-4FF6-864C-2F5AAB22305C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAE60D3C-978B-4FF6-864C-2F5AAB22305C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAE60D3C-978B-4FF6-864C-2F5AAB22305C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{548730DE-D9E8-48E4-B43B-48D35D36BE13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{548730DE-D9E8-48E4-B43B-48D35D36BE13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{548730DE-D9E8-48E4-B43B-48D35D36BE13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{548730DE-D9E8-48E4-B43B-48D35D36BE13}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
