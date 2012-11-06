@@ -2,3 +2,8 @@ D:\PIH\New Media Integration\Project\Bingo\Gameplay\bin\Debug\Gameplay.dll
 D:\PIH\New Media Integration\Project\Bingo\Gameplay\bin\Debug\Gameplay.pdb
 D:\PIH\New Media Integration\Project\Bingo\Gameplay\obj\Debug\Gameplay.dll
 D:\PIH\New Media Integration\Project\Bingo\Gameplay\obj\Debug\Gameplay.pdb
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\Gameplay\bin\Debug\Gameplay.dll
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\Gameplay\bin\Debug\Gameplay.pdb
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\Gameplay\obj\Debug\Gameplay.csprojResolveAssemblyReference.cache
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\Gameplay\obj\Debug\Gameplay.dll
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\Gameplay\obj\Debug\Gameplay.pdb

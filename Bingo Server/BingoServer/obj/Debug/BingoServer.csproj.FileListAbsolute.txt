@@ -11,3 +11,18 @@ D:\PIH\New Media Integration\Project\Bingo\BingoServer\obj\Debug\BingoServer.Pro
 D:\PIH\New Media Integration\Project\Bingo\BingoServer\obj\Debug\BingoServer.csproj.GenerateResource.Cache
 D:\PIH\New Media Integration\Project\Bingo\BingoServer\obj\Debug\BingoServer.exe
 D:\PIH\New Media Integration\Project\Bingo\BingoServer\obj\Debug\BingoServer.pdb
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\bin\Debug\BingoServer.exe.config
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\obj\Debug\BingoServer.exe
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\obj\Debug\BingoServer.pdb
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\bin\Debug\BingoServer.exe
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\bin\Debug\BingoServer.pdb
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\bin\Debug\Gameplay.dll
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\bin\Debug\Gameplay.pdb
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\obj\Debug\BingoServer.csprojResolveAssemblyReference.cache
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\obj\Debug\MainWindow.baml
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\obj\Debug\MainWindow.g.cs
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\obj\Debug\App.g.cs
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\obj\Debug\BingoServer_MarkupCompile.cache
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\obj\Debug\BingoServer.g.resources
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\obj\Debug\BingoServer.Properties.Resources.resources
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\obj\Debug\BingoServer.csproj.GenerateResource.Cache

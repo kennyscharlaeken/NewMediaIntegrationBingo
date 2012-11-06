@@ -12,35 +12,74 @@ namespace Server
     {
 
         //privates
-        private bool _listen = true;
-        private IPEndPoint _endpoint;
-        private UdpClient _udpcl = new UdpClient();
+        private bool _listen = false;
+        private IPEndPoint _ip;
+        private TcpClient _client = null;
+        private NetworkStream _stream=null;
 
-        public IPEndPoint Endpoint
+        public IPEndPoint Ip
         {
-            get { return _endpoint; }
-            set { _endpoint = value; }
+            get { return _ip; }
+            set { _ip = value; }
+        }
+
+        public TcpClient Client
+        {
+            get { return _client; }
+            set 
+            {
+                if (_client != null)
+                {
+                    _stream = _client.GetStream();
+                }
+            }
         }
 
         public ServerClient()
-        {
-            Endpoint = new IPEndPoint(IPAddress.Any, Server.SERVER_PORT);
-        }
+        {}
 
-
-        // Listen to incoming traffic on specific Endpoint
+        // Listen to incoming traffic
         public void listen(object state)
         {
-            if (Endpoint != null)
+            try
             {
-                _udpcl.Client.Connect(Endpoint);
-                while (_listen)
+                if (_stream != null)
                 {
-                    byte[] msg = _udpcl.Receive(ref _endpoint);
-                    // Have a message do something with it
+                    _listen = true;
+                    while (_listen)
+                    {
+                        byte[] msg = new byte[256];
+                        int bytes = _stream.Read(msg, 0, msg.Length);
+                        processMessage(msg,bytes);
+                    }
                 }
             }
-            else throw new Exception("No Enpoint was set for client");
+            catch (Exception)
+            {
+                // do something
+                throw;
+            }
+        }
+
+        private void processMessage(byte[] msg, int bytes)
+        {
+            // process all messages wether it's a string or bits and bytes
+        }
+
+        public void sendMessage(byte[] msg)
+        {
+            try
+            {
+                if ( (_stream != null) && (msg!=null) && (msg.Length>0))
+                {
+                    _stream.Write(msg, 0, msg.Length);
+                }
+            }
+            catch (Exception)
+            {
+                // do something
+                throw;
+            }            
         }
 
 
@@ -49,10 +88,7 @@ namespace Server
             ServerClient cl = obj as ServerClient;
             if (cl != null)
             {
-                if (cl.Endpoint.Address.Equals(Endpoint.Address))
-                {
-                    return true;
-                }
+                if (IPAddress.Equals(cl.Ip,Ip))return true;
             }
             return false;
         }

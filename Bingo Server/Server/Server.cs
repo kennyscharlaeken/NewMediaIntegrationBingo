@@ -15,20 +15,25 @@ namespace Server
    //   For games we use UDP
    //
 
-    public sealed class Server 
+    public sealed class Server
     {
 
         // CONSTANTS
         public const int SERVER_PORT = 1300;
 
+
         // Privates
-        private UdpClient _serverlistener;
+        private IPAddress _ip = null;
+        private TcpListener _server;
         private List<ServerClient> _clients = new List<ServerClient>();
         private bool _listen = false;
 
+        private int _maxpending = 32;
+
         public Server()
         {
-            _serverlistener = new UdpClient(SERVER_PORT);
+            _ip = Helper.LocalIPAddress();
+            _server = new TcpListener(_ip,SERVER_PORT);
         }
 
         // Starts the listen thread
@@ -39,45 +44,56 @@ namespace Server
             listenthread.Start();
         }
 
-        // The thread that is listening into incomming transmissions. (Only new clients will be initialized)
         private void listen()
         {
             try
             {
+                _server.Start(_maxpending);
                 while (_listen)
                 {
+                    TcpClient client = _server.AcceptTcpClient();
+                    ServerClient scl = retrieveConnectedClient(client);
 
-                    IPEndPoint pt = new IPEndPoint(Helper.LocalIPAddress(),SERVER_PORT);
-                    byte[] receivebytes = _serverlistener.Receive(ref pt);
-
-                    ServerClient cl = getClientConnected(pt);
-                    if (cl!=null)
+                    if (!clientExists(scl))
                     {
-                        startClient(cl);
+                        startClient(scl);
                     }
-                }                
+
+                }
+                _server.Stop();              
             }
-            catch (Exception)
+            catch
             {
-                throw;
+                if (_listen) throw;
             }
         }
 
-        // If Adress does not already exists in the list we add it.
-        private ServerClient getClientConnected(IPEndPoint pt)
+        private bool clientExists(ServerClient scl)
         {
-            ServerClient cl = new ServerClient();
-            cl.Endpoint = pt;
-            if (!_clients.Contains(cl)) _clients.Add(cl); else cl = null;
-            return cl;
+            return _clients.Contains(scl);
         }
 
-        // starts a client listener for incomming traffic on that specific ip
+        private ServerClient retrieveConnectedClient(TcpClient cl)
+        {
+            IPEndPoint ip = cl.Client.RemoteEndPoint as IPEndPoint;
+            ServerClient scl = new ServerClient() { Ip = ip};
+            return scl;
+        }
+
+        protected void sendMessageToAll(byte[] msg)
+        {
+            foreach(ServerClient client in _clients)
+            {
+                client.sendMessage(msg);
+            }
+        }
+
         private void startClient(ServerClient cl)
         {            
             if (cl != null)
             {
                 ThreadPool.QueueUserWorkItem(new WaitCallback(cl.listen),null);
+                _clients.Add(cl);
             }
         }
 
