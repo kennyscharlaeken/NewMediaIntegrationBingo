@@ -66,24 +66,21 @@ namespace Gameplay
 
 
         // Public Methods
-        public List<BingoCard> scrambleAllCards(byte players)
+        public List<BingoCard> scramblePlayerCards()
         {
-            for (byte p = 0; p < players; p++)
-			{
-			   for (byte c = 0; c < _max_cards; c++)
-               {
-                   BingoCard card = scrambleACard();
-                   if (!containsCard(card)) _cards.Add(card);
-               }
+            List<BingoCard> cards = new List<BingoCard>();
+            for (byte c = 0; c < _max_cards; c++)
+            {
+                BingoCard card = scrambleACard();
+                if (!containsCard(card)) cards.Add(card);
 			}          
-            return _cards;
+            return cards;
         }
 
-
-
-       
-
-       
+        public void flushMemoryCards()
+        {
+            _cards.Clear();
+        }
 
 
 

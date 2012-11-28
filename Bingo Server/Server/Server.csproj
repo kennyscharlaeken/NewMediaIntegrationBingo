@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,10 +40,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ServerClient.cs" />
+    <Compile Include="Debug.cs" />
+    <Compile Include="Server.Messages.cs" />
+    <Compile Include="ServerCodes.cs" />
+    <Compile Include="ServerBeacon.cs" />
+    <Compile Include="ClientHandler.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClientHandler.Events.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gameplay\Gameplay.csproj">
+      <Project>{548730de-d9e8-48e4-b43b-48d35d36be13}</Project>
+      <Name>Gameplay</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Server.Gameplay.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

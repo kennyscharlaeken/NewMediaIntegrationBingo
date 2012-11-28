@@ -7,37 +7,48 @@ using System.Text;
 
 using System.Net;
 using System.Threading;
+using Gameplay;
 
 namespace Server
 {
 
-   // 
-   //   For games we use UDP
-   //
-
-    public sealed class Server
+    public partial class Server
     {
 
         // CONSTANTS
         public const int SERVER_PORT = 1300;
 
+        // Statics
+        private static Server _singleton = null;
 
         // Privates
         private IPAddress _ip = null;
-        private TcpListener _server;
-        private List<ServerClient> _clients = new List<ServerClient>();
+        private TcpListener _serverlistener;
+        private List<ClientHandler> _clients = new List<ClientHandler>();
         private bool _listen = false;
 
-        private int _maxpending = 32;
+        private int _maxpending = 1000;
+
+        private List<Player> _players = new List<Player>();
+        public List<Player> Players { get { return _players; } }
+
+        public static Server Singleton
+        {
+            get
+            {
+                if (_singleton == null) _singleton = new Server();
+                return _singleton;
+            }
+        }
 
         public Server()
         {
             _ip = Helper.LocalIPAddress();
-            _server = new TcpListener(_ip,SERVER_PORT);
+            _serverlistener = new TcpListener(_ip,SERVER_PORT);
         }
 
         // Starts the listen thread
-        public void startToListen()
+        public void open()
         {
             _listen = true;
             Thread listenthread = new Thread(new ThreadStart(listen));
@@ -48,54 +59,103 @@ namespace Server
         {
             try
             {
-                _server.Start(_maxpending);
+                _serverlistener.Start(_maxpending);
+                Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO,String.Format(MSG_SERVER_START,_ip.ToString(),SERVER_PORT));
                 while (_listen)
                 {
-                    TcpClient client = _server.AcceptTcpClient();
-                    ServerClient scl = retrieveConnectedClient(client);
-
+                    TcpClient client = _serverlistener.AcceptTcpClient();
+                    ClientHandler scl = retrieveConnectedClient(client);
                     if (!clientExists(scl))
                     {
                         startClient(scl);
                     }
-
-                }
-                _server.Stop();              
+                } 
             }
-            catch
+            catch(Exception)
             {
                 if (_listen) throw;
             }
         }
 
-        private bool clientExists(ServerClient scl)
+        private void closeServer()
+        {
+            try
+            {
+                _listen = false;
+                _serverlistener.Stop();
+                _clients.Clear();                
+                Debug.Singleton.sendDebugMessage(DEBUGLEVELS.WARNING, MSG_SERVER_STOP);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private bool clientExists(ClientHandler scl)
         {
             return _clients.Contains(scl);
         }
 
-        private ServerClient retrieveConnectedClient(TcpClient cl)
+        private ClientHandler retrieveConnectedClient(TcpClient cl)
         {
             IPEndPoint ip = cl.Client.RemoteEndPoint as IPEndPoint;
-            ServerClient scl = new ServerClient() { Ip = ip};
+            ClientHandler scl = new ClientHandler() { Ip = ip};
+            scl.Client = cl;
             return scl;
         }
 
-        protected void sendMessageToAll(byte[] msg)
-        {
-            foreach(ServerClient client in _clients)
-            {
-                client.sendMessage(msg);
-            }
-        }
-
-        private void startClient(ServerClient cl)
+        private void startClient(ClientHandler cl)
         {            
             if (cl != null)
             {
                 ThreadPool.QueueUserWorkItem(new WaitCallback(cl.listen),null);
-                _clients.Add(cl);
+                addNewClient(cl);
             }
         }
+
+        private void addNewClient(ClientHandler cl)
+        {
+            if (!_clients.Contains(cl)) _clients.Add(cl);
+        }
+
+        public void removeClient(ClientHandler cl)
+        {
+            // DC the client first ?!
+            _clients.Remove(cl);
+        }
+
+        #region "PEOPLE"
+        public void sendMessageToAdmins(string msg)
+        {
+            var res = from n in _clients
+                      where n.Admin == true
+                      select n;
+            foreach (ClientHandler cl in res)
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(cl.sendMessage), msg);
+            }
+        }
+        public void sendMessageToPlayers(object msg)
+        {
+            var res = from n in _clients
+                      where n.IsPlayer == true
+                      select n;
+            foreach (ClientHandler cl in res)
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(cl.sendMessage), msg);
+            }
+        }
+        public void sendMessageToPlayer(Player p, object msg)
+        {
+            Player pl = p;
+            var res = from n in _clients
+                      where n.Player.Equals(pl)
+                      select n;
+            ClientHandler cl = res as ClientHandler;
+            if (cl != null) cl.sendMessage(msg);
+        }
+        #endregion
 
     }
 

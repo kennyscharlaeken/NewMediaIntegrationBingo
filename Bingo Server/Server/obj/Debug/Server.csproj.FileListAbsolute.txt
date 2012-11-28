@@ -3,3 +3,10 @@ D:\PIH\New Media Integration\Project\Bingo\Server\bin\Debug\Server.pdb
 D:\PIH\New Media Integration\Project\Bingo\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
 D:\PIH\New Media Integration\Project\Bingo\Server\obj\Debug\Server.dll
 D:\PIH\New Media Integration\Project\Bingo\Server\obj\Debug\Server.pdb
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\Server\bin\Debug\Server.dll
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\Server\bin\Debug\Server.pdb
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\Server\bin\Debug\Gameplay.dll
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\Server\bin\Debug\Gameplay.pdb
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\Server\obj\Debug\Server.dll
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\Server\obj\Debug\Server.pdb
