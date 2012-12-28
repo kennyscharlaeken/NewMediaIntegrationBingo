@@ -24,23 +24,35 @@ namespace BingoServer
     {
 
         private GameConsole gs = GameConsole.Singleton;
+        private BingoScreen sc = new BingoScreen();
 
         public BingoServerMain()
         {
             InitializeComponent();
 
-            gs.DebugConsoleDisplay = ConsoleDebug;
-            txtConsole.Focus();
-            initDisplay();
+            initEvents();
+            initConsole();
+            setupBingoScreen();
         }
 
-        private void initDisplay()
+        private void initEvents()
         {
+            Closing += BingoServerMain_Closing;
+        }
+        private void setupBingoScreen()
+        {
+            sc.Show();
+        }
+
+        private void initConsole()
+        {
+            gs.DebugConsoleDisplay = ConsoleDebug;
             string w = "====================================================="+'\n'+
                 "Welcome to bingo server v1.0" + '\n' + '\n' +
                 "Type help for more commands"+'\n'+
                 "====================================================="+'\n';
             ConsoleDebug.addMessage(Server.DEBUGLEVELS.INFO, w);
+            txtConsole.Focus();
         }
 
         private void btnConsole_Click(object sender, RoutedEventArgs e)
@@ -61,6 +73,11 @@ namespace BingoServer
             {
                 interpretAction();
             }
+        }
+
+        private void BingoServerMain_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            sc.Close();
         }
 
     }

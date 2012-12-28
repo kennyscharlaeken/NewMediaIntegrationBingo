@@ -1,8 +1,11 @@
 ﻿<Window x:Class="TestClient.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="103" Width="462">
     <Grid>
-        
+        <Button x:Name="btnLI" Content="LI" HorizontalAlignment="Left" Margin="22,21,0,0" VerticalAlignment="Top" Width="82" Height="30" Click="btnLI_Click"/>
+        <Button x:Name="btnDC" Content="DC" HorizontalAlignment="Left" Margin="124,21,0,0" VerticalAlignment="Top" Width="85" Height="30" Click="btnDC_Click"/>
+        <Button x:Name="btnAD" Content="AD" HorizontalAlignment="Left" Margin="237,21,0,0" VerticalAlignment="Top" Width="85" Height="30" Click="btnAD_Click"/>
+        <Button x:Name="btnBI" Content="BI" HorizontalAlignment="Left" Margin="346,21,0,0" VerticalAlignment="Top" Width="85" Height="30" Click="btnBI_Click"/>
     </Grid>
 </Window>

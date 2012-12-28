@@ -12,6 +12,7 @@ namespace Gameplay
     {
         public IPAddress Ip { get; set; }
         public Image Image { get; set; }
+        public int Points { get; set; }
 
         public List<BingoCard> BingoCards { get; set; }
 

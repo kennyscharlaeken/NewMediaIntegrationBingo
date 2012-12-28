@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -30,18 +31,27 @@ namespace Server
         {
             return BitConverter.GetBytes(i);
         }
+        internal static byte[] convertToBytes(object e)
+        {
+            if (e == null) return null;
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream();
+            bf.Serialize(ms, e);
+            return ms.ToArray();
+        }
 
         internal static string convertToString(byte[] a)
         {
             return new ASCIIEncoding().GetString(a);
         }
 
-        internal static string convertList(IEnumerable<object> list)
+        internal static string convertNumberList(IEnumerable<object> list)
         {
             string result = "";
             foreach (object item in list)
             {
-                result += item.ToString();
+                string nr = item.ToString();
+                result += nr.Length+nr;
             }
             return result;
         }

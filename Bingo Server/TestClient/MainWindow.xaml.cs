@@ -30,7 +30,8 @@ namespace TestClient
         private const int receivePort = 3301;
         private IPAddress serverip=null;
         private int serverport = 1300;
-        TcpClient cl = new TcpClient();
+        private TcpClient cl = new TcpClient();
+        private bool listen = false;
 
 
         public MainWindow()
@@ -38,7 +39,7 @@ namespace TestClient
             InitializeComponent();
 
             initUdpListener();
-            start();
+            udpStart();
         }
 
         private void initUdpListener()
@@ -55,6 +56,7 @@ namespace TestClient
                 byte[] buffer = udp.Receive(ref point);
                 serverip = point.Address;
                 say(String.Format("Found a server {0}:{1}", serverip.ToString(), serverport));
+                udp.Close();
                 makeTCPConnection();
             }
             catch (Exception ex)
@@ -73,7 +75,7 @@ namespace TestClient
                     say(String.Format("Attempting a connection on {0}:{1}", serverip.ToString(), serverport));
                     cl.Connect(serverip, serverport);
                     say(String.Format("Connected", serverip.ToString(), serverport));
-                    sendLI(cl);
+                    setupTCPListener();                    
                 }
                 catch (Exception ex)
                 {
@@ -82,16 +84,57 @@ namespace TestClient
             }
         }
 
-        private void sendLI(TcpClient cl)
+        private void setupTCPListener()
+        {
+            try
+            {
+                listen = true;
+                while (listen)
+                {
+                    byte[] buffer = new byte[cl.ReceiveBufferSize];
+                    cl.GetStream().Read(buffer, 0, buffer.Length);
+                    say(convertToString(new byte[]{buffer[0],buffer[1]}),ConsoleColor.Red);
+                }
+            }
+            catch (Exception)
+            {                
+                throw;
+            }
+        }
+
+        private void sendLogin()
         {
             // Sending LI
             say(String.Format("Sending LI...", serverip.ToString(), serverport));
             cl.GetStream().Write(new byte[] { 76, 73 }, 0, 2);
             say(String.Format("Sending LI complete", serverip.ToString(), serverport));
         }
-        
-    
-        private void start()
+        private void sendBingo()
+        {
+            // Sending BI
+            say(String.Format("Sending BI...", serverip.ToString(), serverport));
+            cl.GetStream().Write(new byte[] { 66, 73 }, 0, 2);
+            say(String.Format("Sending BI complete", serverip.ToString(), serverport));
+        }
+        private void sendDC()
+        {
+            //Sending DC
+            say(String.Format("Sending DC...", serverip.ToString(), serverport));
+            cl.GetStream().Write(new byte[] { 68, 67 }, 0, 2);
+            say(String.Format("Sending DC complete", serverip.ToString(), serverport));
+            cl.Close();
+            listen = false;
+        }
+        private void sendAdmin()
+        {
+            //Sending AD
+            say(String.Format("Sending AD...", serverip.ToString(), serverport));
+            cl.GetStream().Write(new byte[] { 65, 68 }, 0, 2);
+            say(String.Format("Sending AD complete", serverip.ToString(), serverport));
+        }
+
+
+        private void udpStart()
         {
             UdpClient sender = new UdpClient();
             IPEndPoint groupEP = new IPEndPoint(GroupAddress, destinationPort);
@@ -130,5 +173,31 @@ namespace TestClient
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
             return host.AddressList.FirstOrDefault(ip => ip.AddressFamily.ToString() == "InterNetwork");
         }
+        internal static string convertToString(byte[] a)
+        {
+            return new ASCIIEncoding().GetString(a);
+        }
+
+        private void btnLI_Click(object sender, RoutedEventArgs e)
+        {
+            sendLogin();
+        }
+
+        private void btnDC_Click(object sender, RoutedEventArgs e)
+        {
+            sendDC();
+        }
+
+        private void btnAD_Click(object sender, RoutedEventArgs e)
+        {
+            sendAdmin();
+        }
+
+        private void btnBI_Click(object sender, RoutedEventArgs e)
+        {
+            sendBingo();
+        }
+
+      
     }
 }

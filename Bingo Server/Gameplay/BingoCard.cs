@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Gameplay
 {
+    [Serializable()]
     public class BingoCard : List<string>
     {
         private const double CARD_SAME_RATIO = 0.8;

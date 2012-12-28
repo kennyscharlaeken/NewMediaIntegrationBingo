@@ -10,36 +10,86 @@ namespace Server
 {
     public partial class ClientHandler
     {
-        public delegate void playerUpdateHandler(ref Player player);
+        public delegate void playerUpdateHandler(Player player,string msg="");
         public static event playerUpdateHandler ImageUpdated;
 		public static event playerUpdateHandler PlayerJoined;
         public static event playerUpdateHandler PlayerLeft;
+        public static event playerUpdateHandler PlayerRejected;
+        public static event playerUpdateHandler PlayerOped;
+        public static event playerUpdateHandler PlayerCodeRejected;
+        public static event playerUpdateHandler PlayerCalledBingo;
 
-        private void fireImageUpdated(ref Player player)
+        public event Action PlayerIsReady;
+
+        private void fireImageUpdated(Player player)
         {
             if (ImageUpdated != null)
             {
-                ImageUpdated.Invoke(ref player);
+                ImageUpdated.Invoke(player);
             }
             Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_IMAGE, player.ToString()));
         }
 
-        private void firePlayerJoined(ref Player player)
+        private void firePlayerJoined(Player player)
         {
             if (PlayerJoined != null)
             {
-                PlayerJoined.Invoke(ref player);
+                PlayerJoined.Invoke(player);
             }
             Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_JOINED, player.ToString()));
         }
 
-        private void firePlayerLeft(ref Player player)
+        private void firePlayerRejected(Player player)
+        {
+            if (PlayerRejected != null)
+            {
+                PlayerRejected(player);
+            }
+            Debug.Singleton.sendDebugMessage(DEBUGLEVELS.WARNING, String.Format(MSG_REJECTED, player.ToString()));
+        }
+
+        private void firePlayerLeft(Player player)
         {
             if (PlayerLeft != null)
             {
-                PlayerLeft.Invoke(ref player);
+                PlayerLeft.Invoke(player);
             }
             Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_LEFT, player.ToString()));
+        }
+
+        private void firePlayerOped(Player player)
+        {
+            if (PlayerOped != null)
+            {
+                PlayerOped.Invoke(player);
+            }
+            Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_OP, player.ToString()));
+        }
+
+        private void firePlayerCodeRejected(Player player,string code)
+        {
+            if (PlayerCodeRejected != null)
+            {
+                PlayerCodeRejected.Invoke(player);
+            }
+            Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_CODE_REJECTED, code, player.ToString()));
+        }
+
+        private void firePlayerCalledBingo(Player player)
+        {
+            if (PlayerCalledBingo != null)
+            {
+                PlayerCalledBingo.Invoke(player);
+            }
+            Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_BINGO, player.ToString()));
+        }
+
+        private void firePlayerReady()
+        {
+            if (PlayerIsReady != null)
+            {
+                PlayerIsReady.Invoke();
+            }
         }
 
     }

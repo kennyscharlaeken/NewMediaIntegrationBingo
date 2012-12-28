@@ -77,18 +77,27 @@ namespace Server
             }
         }
 
-        private void closeServer()
+        public void close()
         {
             try
             {
                 _listen = false;
                 _serverlistener.Stop();
+                dcClients();                
                 _clients.Clear();                
                 Debug.Singleton.sendDebugMessage(DEBUGLEVELS.WARNING, MSG_SERVER_STOP);
             }
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        private void dcClients()
+        {
+            foreach (ClientHandler item in _clients)
+            {
+                item.disconnect();
             }
         }
 
@@ -101,6 +110,7 @@ namespace Server
         {
             IPEndPoint ip = cl.Client.RemoteEndPoint as IPEndPoint;
             ClientHandler scl = new ClientHandler() { Ip = ip};
+            cl.NoDelay = true;
             scl.Client = cl;
             return scl;
         }
@@ -146,13 +156,17 @@ namespace Server
                 ThreadPool.QueueUserWorkItem(new WaitCallback(cl.sendMessage), msg);
             }
         }
-        public void sendMessageToPlayer(Player p, object msg)
+        public void sendMessageToPlayer(Player p, string msg)
         {
             Player pl = p;
             var res = from n in _clients
                       where n.Player.Equals(pl)
                       select n;
-            ClientHandler cl = res as ClientHandler;
+            ClientHandler cl = null;
+            foreach (ClientHandler temp in res)
+            {
+                cl = temp;
+            }
             if (cl != null) cl.sendMessage(msg);
         }
         #endregion

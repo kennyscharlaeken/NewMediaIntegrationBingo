@@ -14,18 +14,13 @@ namespace Server
     public partial class ClientHandler
     {
 
-        //Constants
-        private const int BUFFER_SIZE = 1024;
-        private const string MSG_JOINED ="Player \"{0}\" joined.";
-        private const string MSG_LEFT = "Player \"{0}\" has left.";
-        private const string MSG_IMAGE = "Player \"{0}\" has changed his picture.";
-
         //privates
         private bool _active = false;
         private IPEndPoint _ip;
         private TcpClient _client = null;
         private NetworkStream _stream=null;
         private bool _bufferoverflow = false;
+        private Server _server = null;
         private string _code = string.Empty;
         private Player _player = new Player();
         private MemoryStream _memstream = new MemoryStream();
@@ -54,7 +49,9 @@ namespace Server
         }
 
         public ClientHandler()
-        {}
+        {
+            _server = Server.Singleton;
+        }
 
         // Listen to incoming traffic
         public void listen(object state)
@@ -69,6 +66,7 @@ namespace Server
                         byte[] msg = new byte[_client.ReceiveBufferSize];
                         int bytes = _stream.Read(msg, 0, msg.Length);
                         processMessage(msg, bytes);
+                        //msg = null;
                     }
                 }
             }
@@ -78,57 +76,31 @@ namespace Server
             }
         }
 
-        private void processMessage(byte[] msg, int bytes)
+        private void processMessage(byte[] msg, int bytesread)
         {
             //process all messages wether it's a string or bits and bytes , first 2 bytes are code
             //if overflow is set then write it to memory.
             if (!_bufferoverflow)
             {
                 string code = Helper.convertToString(new byte[] { msg[0], msg[1] });
-                resolveMessage(code, msg);
+                byte[] newmsg = new byte[bytesread];
+                if (bytesread > 2)
+                {
+                    msg.CopyTo(newmsg, 1);
+                    resolveMessage(code, newmsg);
+                }
+                else resolveMessage(code, msg);
             }
             else
             {
                 writeToMemory(msg);
             }
         }
-
-        private void resolveMessage(string code,byte[] msg)
-        {
-            _code = code;
-            switch (code)
-            {
-                case ServerCodes.CLIENT_CODE_LOGIN:
-                    _player.Ip = _ip.Address;
-                    IsPlayer = true;
-                    Server.Singleton.addPlayer(_player);
-                    firePlayerJoined(ref _player);
-                    break;
-                case ServerCodes.CLIENT_CODE_PICTURE:
-                    _bufferoverflow = true;
-                    _code = ServerCodes.CLIENT_CODE_PICTURE;
-                    _overflowsize = int.Parse(Helper.convertToString(new byte[] {msg[2], msg[3], msg[4], msg[5]}));
-                    writeToMemory(msg, 6);
-                    break;
-                case ServerCodes.SERVER_CODE_CLIENT_DC:
-                    Server.Singleton.removePlayer(_player);
-                    disconnect();
-                    firePlayerLeft(ref _player);
-                    break;
-                case ServerCodes.CLIENT_ADMIN:
-                    Admin = true;
-                    break;
-                default:
-                    sendMessage(ServerCodes.SERVER_NO_CODE);
-                    break;
-            }
-        }
-
         private void captureImage(Stream str)
         {
             _player.Image = Image.FromStream(str);
             str.Flush();
-            fireImageUpdated(ref _player);
+            fireImageUpdated(_player);
         }
 
         private bool detectEndOfFile(byte[] msg)
@@ -157,40 +129,67 @@ namespace Server
             }
         }
 
+        private void send(byte[] buffer)
+        {
+            if (_active)
+            {
+                if ((_stream != null) && (buffer != null) && (buffer.Length > 0))
+                {
+                    _stream.Write(buffer, 0, buffer.Length);
+                }
+            }
+        }
         public void sendMessage(object e)
         {
             try
             {
-                byte[] msg = Helper.convertToBytes(Helper.convertToXml(e));
-                if (_active)
-                {
-                    if ((_stream != null) && (msg != null) && (msg.Length > 0))
-                    {
-                        _stream.Write(msg, 0, msg.Length);
-                    }
-                }
+                //byte[] msg = Helper.convertToBytes(Helper.convertToXml(e));
+                byte[] msg = Helper.convertToBytes(e);
+                send(msg);
             }
             catch (Exception)
             {
                 if (_active) throw;
             }            
+        }        
+        public void sendMessage(string text)
+        {
+            try
+            {
+                byte[] msg = Helper.convertToBytes(text);
+                send(msg);
+            }
+            catch (Exception)
+            {
+                if (_active) throw;
+            }
+        }
+
+        private void sendAck()
+        {
+            sendMessage(ServerCodes.SERVER_CODE_ACK);
+        }
+        private void sendNAck()
+        {
+            sendMessage(ServerCodes.SERVER_CODE_NACK);
         }
 
         public void disconnect(bool removeself=false)
         {
             try
             {
+                sendMessage(ServerCodes.SERVER_CODE_SHUTDOWN);
                 _active = false;
                 IsPlayer = false;
+                //_player = null;
                 _stream.Close();
-                if(removeself)Server.Singleton.removeClient(this);
+                if(removeself)Server.Singleton.removeClient(this);                
             }
             catch (Exception ex)
             {                
                 throw;
             }
         }
-
 
         public override bool Equals(object obj)
         {

@@ -15,8 +15,10 @@ namespace Gameplay
         private static byte _min_random_number = 1;
         private static byte _jump_random_number = 15;
         private static byte _max_cards = 3;
-        private static byte _cap_random_number = _min_random_number;
         private static List<BingoCard> _cards = new List<BingoCard>();
+
+        private List<String> _uniquenumbers = new List<string>();
+        public List<string> UniqueNumbers { get { return _uniquenumbers; } set { _uniquenumbers = value; } }
 
         // Properties
         public static BingoCards Singleton 
@@ -55,7 +57,17 @@ namespace Gameplay
         {
             int rndnumber = (byte)rnd.Next(caprnd, caprnd+_jump_random_number);
             string id = rndnumber.ToString();
-            if (!card.Contains(id)) return id; else return getRandomID(card, rnd,caprnd);
+            if (!card.Contains(id))
+            {
+                addUniqueId(id);
+                return id;
+            }
+            else return getRandomID(card, rnd, caprnd);
+        }
+
+        private void addUniqueId(string id)
+        {
+            if (!UniqueNumbers.Contains(id)) UniqueNumbers.Add(id);
         }
 
         private bool containsCard(BingoCard card)

@@ -40,7 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientHandler.GamePlay.cs" />
+    <Compile Include="ClientHandler.Messages.cs" />
     <Compile Include="Debug.cs" />
+    <Compile Include="Server.Events.cs" />
     <Compile Include="Server.Messages.cs" />
     <Compile Include="ServerCodes.cs" />
     <Compile Include="ServerBeacon.cs" />

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="BingoCard.cs" />
     <Compile Include="BingoCards.cs" />
+    <Compile Include="BingoDrum.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
