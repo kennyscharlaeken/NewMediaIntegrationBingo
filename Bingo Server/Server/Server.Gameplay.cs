@@ -67,7 +67,7 @@ namespace Server
                     player.BingoCards = BingoCards.Singleton.scramblePlayerCards();
                 }
                 // Send
-                //sendBingoCardsToPlayers();
+                sendBingoCardsToPlayers();
             }
         }
 
