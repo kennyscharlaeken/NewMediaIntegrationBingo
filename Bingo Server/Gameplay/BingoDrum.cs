@@ -22,22 +22,24 @@ namespace Gameplay
         private BingoDrum() { }
 
         private Random _rand = new Random();
-        private string _lastnumber = "";
+        private int _lastnumber = 0;
 
-        public List<string> Numbers { get; set; }
+        private List<string> _numbers = new List<string>();
+        public List<string> Numbers { get { return _numbers; } set { _numbers = value; } }
      
-        private string pickRandomNumber()
+        public int pickRandomNumber()
         {
             setNumbers();
             int rindex = _rand.Next(Numbers.Count()-1);
-            string number = Numbers[rindex];
+            int number=0;
+            int.TryParse(Numbers[rindex],out number);
             if (number != _lastnumber)
             {
                 _lastnumber = number;
                 return number;
             }
             else pickRandomNumber();
-            return string.Empty;
+            return 0;
         }
 
         private void setNumbers()

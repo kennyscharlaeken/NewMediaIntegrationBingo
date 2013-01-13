@@ -20,14 +20,34 @@ namespace BingoServer.Game
     /// </summary>
     public partial class GameScreen : UserControl
     {
+
+        private List<Image> _numbersimages = new List<Image>();
+
         public GameScreen()
         {
             InitializeComponent();
         }
-
-        private void btnTestAnim_Click(object sender, RoutedEventArgs e)
+         
+        public void setNewestBall(string p)
         {
-            bndNumbers.startMoveAnimation();
+            BitmapImage bmpimgc = null;
+            BitmapImage bmpimgnew = new BitmapImage(new Uri(@"pack://application:,,,/BingoServer;component/Resources/" + p + ".png"));
+            if (imgLastBall.Source != null)bmpimgc = imgLastBall.Source as BitmapImage;
+            imgLastBall.Source = bmpimgnew;
+            if (bmpimgc != null)
+            {
+                Image cimage = new Image() { Source = bmpimgc };
+                cimage.Margin = new Thickness(0, 5, 5, 0);
+                cimage.Stretch = Stretch.None;
+                wpLastBalls.Children.Add(cimage);
+                _numbersimages.Add(cimage);
+            }
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Server.Server.Singleton.startGame();
+        }
+
     }
 }

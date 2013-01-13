@@ -24,10 +24,11 @@ namespace BingoServer
     {
 
         private GameConsole gs = GameConsole.Singleton;
-        private BingoScreen sc = new BingoScreen();
+        public static BingoScreen bingoscreen = new BingoScreen();
 
         public BingoServerMain()
         {
+            Title = "Bingo Server " + Helper.getVersion() + " - Console";
             InitializeComponent();
 
             initEvents();
@@ -41,7 +42,7 @@ namespace BingoServer
         }
         private void setupBingoScreen()
         {
-            sc.Show();
+            bingoscreen.Show();
         }
 
         private void initConsole()
@@ -77,7 +78,7 @@ namespace BingoServer
 
         private void BingoServerMain_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            sc.Close();
+            bingoscreen.Close();
         }
 
     }

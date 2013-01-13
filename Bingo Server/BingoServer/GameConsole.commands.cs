@@ -98,7 +98,7 @@ namespace BingoServer
 
         public void help()
         {
-            DebugConsoleDisplay.addMessage(Server.DEBUGLEVELS.INFO, "Available commands:" + '\n' + "start (beacon/server), stop (beacon/server), flush (memcards), send(cards), generatecards, cls, exit, help");
+            DebugConsoleDisplay.addMessage(Server.DEBUGLEVELS.INFO, "Available commands:" + '\n' + "start (beacon/server), stop (beacon/server), flush (memcards), send(cards),maximize,minimize, generatecards, cls, exit, help");
         }
 
         public void echo(string text)
@@ -108,11 +108,23 @@ namespace BingoServer
 
         public void generatecards()
         {
+            //_server.Players.Add(new Player());
             if (_server.Players.Count() > 0)
             {
                 _server.generateBingoCards();
                 echo("Generated cards");
             }
+        }
+
+        public void maximize()
+        {
+            BingoServerMain.bingoscreen.WindowStyle = System.Windows.WindowStyle.None;
+            BingoServerMain.bingoscreen.WindowState = System.Windows.WindowState.Maximized;
+        }
+        public void minimize()
+        {
+            BingoServerMain.bingoscreen.WindowStyle = System.Windows.WindowStyle.SingleBorderWindow;
+            BingoServerMain.bingoscreen.WindowState = System.Windows.WindowState.Normal;
         }
 
         //public void generatecards()

@@ -6,8 +6,23 @@
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024">
     <Grid>
-        <TextBox Height="70" TextWrapping="Wrap" Text="wachten op spelers..." Width="630" Margin="194,268,0,0" Background="{x:Null}" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36"/>
-        <TextBox x:Name="txbnrplayers" Height="70" TextWrapping="Wrap" Text="X aantal speler(s)" Width="353" Margin="284,362,0,0" Background="{x:Null}" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36"/>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="185*"/>
+            <RowDefinition Height="53*"/>
+            <RowDefinition Height="97*"/>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="343*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="116*"/>
+            <ColumnDefinition Width="394*"/>
+            <ColumnDefinition Width="56*"/>
+            <ColumnDefinition Width="165*"/>
+            <ColumnDefinition Width="293*"/>
+        </Grid.ColumnDefinitions>
+        <Image Source="/BingoServer;component/Resources/wait_players.png" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" Width="514"/>
+        <Image Source="/BingoServer;component/Resources/Bingo_Rad_Groot.png" Grid.Column="1" Grid.RowSpan="5" HorizontalAlignment="Right" />
+        <Image Name="imgPlayers" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,20,0" Width="auto"/>
+        <Image Source="/BingoServer;component/Resources/spelers.png" Grid.Column="4" Grid.Row="3" HorizontalAlignment="Left"/>
     </Grid>
 </UserControl>

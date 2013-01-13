@@ -17,7 +17,6 @@ namespace Server
             {
                 case ServerCodes.CLIENT_CODE_LOGIN:
                     if (!IsPlayer) onLogin(); else rejectCode();
-                    sendMessage("RP");
                     break;
                 case ServerCodes.CLIENT_CODE_PICTURE:
                     _bufferoverflow = true;

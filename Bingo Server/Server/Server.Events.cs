@@ -17,7 +17,9 @@ namespace Server
         public event Action BingoCardsSend;
 
         public delegate void numberSendHandler(string number);
+        public delegate void newNumberHandler(int number);
         public event numberSendHandler BingoNumberSend;
+        public static event newNumberHandler BingoNewNumber;
 
         private void firePlayersAreReady()
         {
@@ -64,6 +66,14 @@ namespace Server
             if (BingoCardsSend!=null)
             {
                 BingoCardsSend.Invoke();
+            }
+        }
+
+        private static void fireNewBingoNumber(int number)
+        {
+            if (BingoNewNumber != null)
+            {
+                BingoNewNumber.Invoke(number);
             }
         }
 

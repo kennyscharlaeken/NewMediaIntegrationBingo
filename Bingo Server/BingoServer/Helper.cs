@@ -14,5 +14,10 @@ namespace BingoServer
             return DateTime.Now.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("be-BE"));
         }
 
+
+        public static string getVersion()
+        {
+            return "V " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        }
     }
 }

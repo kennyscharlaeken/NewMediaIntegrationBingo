@@ -16,11 +16,20 @@ namespace Server
 
         private int _plready = 0;
 
+        private Timer _drawtimer = null;
+
+        private static void drawANumber(object state)
+        {
+            int number = Gameplay.BingoDrum.Singleton.pickRandomNumber();
+            fireNewBingoNumber(number);
+        }
+       
         public void startGame()
         {
-            sendMessageToPlayers(ServerCodes.SERVER_CODE_START);
+            //sendMessageToPlayers(ServerCodes.SERVER_CODE_START);
             IsGameStarted = true;
             fireGameStarted();
+            startDrawinTimer();
         }
 
         public void pauseGame()
@@ -28,6 +37,7 @@ namespace Server
             sendMessageToPlayers(ServerCodes.SERVER_CODE_PAUSE);
             IsGamePaused = true;
             fireGamePaused();
+            stopDrawinTimer();
         }
 
         public void resumeGame()
@@ -35,24 +45,29 @@ namespace Server
             sendMessageToPlayers(ServerCodes.SERVER_CODE_RESUME);
             IsGamePaused = false;
             fireGameResumed();
+            startDrawinTimer();
         }
 
         public void stopGame()
         {
+            stopDrawinTimer();
             sendMessageToPlayers(ServerCodes.SERVER_CODE_STOP);
             IsGamePaused = false;
             IsGameStarted = false;
-            fireGameStopped();
+            fireGameStopped();            
         }
 
         public void generateBingoCards()
-        {
+        {           
             if (_players.Count() > 0)
             {
                 // Generate
-                foreach (Player player in _players)player.BingoCards = BingoCards.Singleton.scramblePlayerCards();
+                foreach (Player player in _players)
+                {
+                    player.BingoCards = BingoCards.Singleton.scramblePlayerCards();
+                }
                 // Send
-                sendBingoCardsToPlayers();
+                //sendBingoCardsToPlayers();
             }
         }
 
@@ -116,7 +131,7 @@ namespace Server
                     string lists = ServerCodes.SERVER_CODE_CLIENT_CARD + serializeBingoCardsList(pl.BingoCards);
                     sendMessageToPlayer(pl, lists);
                 }// else throw an error or fill in the cards ?
-                //Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_CARD_SEND,pl.Ip.ToString()));
+                Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_CARD_SEND,pl.Ip.ToString()));
             }
             fireBingoCardsSend();
         }
@@ -130,6 +145,15 @@ namespace Server
                 lists += ";";
             }
             return lists;
+        }
+
+        private void startDrawinTimer()
+        {
+            _drawtimer =  new Timer(new TimerCallback(drawANumber), null, 1000, 1000);
+        }
+        private void stopDrawinTimer()
+        {
+            _drawtimer.Dispose();
         }
 
         public void sendBingoNumber(string number)

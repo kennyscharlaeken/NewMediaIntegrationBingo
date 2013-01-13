@@ -34,10 +34,10 @@ namespace Gameplay
         private BingoCards()
         { }
         
-        // Private Methods      
+        // Private Methods   
+        Random rnd = new Random();
         private BingoCard scrambleACard()
         {
-            Random rnd = new Random();
             BingoCard card = new BingoCard();
             byte caprndnumber = _min_random_number;
 
@@ -81,9 +81,10 @@ namespace Gameplay
         public List<BingoCard> scramblePlayerCards()
         {
             List<BingoCard> cards = new List<BingoCard>();
+            BingoCard card = null;
             for (byte c = 0; c < _max_cards; c++)
             {
-                BingoCard card = scrambleACard();
+                card = scrambleACard();
                 if (!containsCard(card)) cards.Add(card);
 			}          
             return cards;

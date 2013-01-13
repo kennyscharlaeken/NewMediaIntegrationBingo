@@ -8,15 +8,27 @@
              d:DesignHeight="768" d:DesignWidth="1024">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="587*"/>
+            <ColumnDefinition Width="437*"/>
+        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="551*"/>
-            <RowDefinition Height="217*"/>
+            <RowDefinition Height="78*"/>
+            <RowDefinition Height="192*"/>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="425*"/>
         </Grid.RowDefinitions>
-        <Image x:Name="imgBack" Grid.RowSpan="2" />
-        <Image x:Name="imgToll" HorizontalAlignment="Left" Height="331" Margin="634,61,0,0" VerticalAlignment="Top" Width="361"/>
-        <Image x:Name="imgTitle" HorizontalAlignment="Left" Height="221" Margin="35,32,0,0" VerticalAlignment="Top" Width="565"/>
-        <Button x:Name="btnTestAnim" Content="Test Anime" HorizontalAlignment="Left" Margin="379,258,0,0" VerticalAlignment="Top" Width="75" Click="btnTestAnim_Click"/>
-        <Elements:BingoNumbersDisplay x:Name="bndNumbers" Grid.Row="1"/>
+        
+        <Image Source="/BingoServer;component/Resources/laatste_bal.png" Margin="20,20,0,0" HorizontalAlignment="Left" Width="350"/>
+        <Image Source="/BingoServer;component/Resources/vorige_ballen.png" Grid.Row="2" HorizontalAlignment="Left" Margin="20,0,0,0" Width="435"/>
+        <Image Source="/BingoServer;component/Resources/Bingo_Rad_Groot.png" Grid.Column="1" Grid.RowSpan="4"/>
+        <Image Grid.Row="1" Name="imgLastBall" Stretch="None"/>
+        
+        <WrapPanel Name="wpLastBalls" Grid.Row="3" Margin="10,0,0,0" >
+            
+        </WrapPanel>
+        <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="155,254,0,0" Grid.Row="3" VerticalAlignment="Top" Width="148" Height="56" Click="Button_Click_1"/>
     </Grid>
 
 </UserControl>

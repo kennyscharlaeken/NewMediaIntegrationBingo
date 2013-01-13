@@ -1,8 +1,7 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Debugger="clr-namespace:BingoServer.Debugger" x:Class="BingoServer.BingoServerMain"
-        Title="Bingo Server V1.0 - Console" Height="368.584" Width="567.588" KeyDown="Window_KeyDown_1">
+        xmlns:Debugger="clr-namespace:BingoServer.Debugger" x:Class="BingoServer.BingoServerMain" Height="368.584" Width="567.588" KeyDown="Window_KeyDown_1" Topmost="True">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

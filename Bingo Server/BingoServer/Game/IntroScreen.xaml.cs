@@ -24,7 +24,7 @@ namespace BingoServer.Game
         {
             set
             {
-                txbnrplayers.Text = value.ToString() + " aantal spelers";
+                resolveImagePlayers(value.ToString());
             }
         }
 
@@ -33,6 +33,10 @@ namespace BingoServer.Game
             InitializeComponent();
         }
 
+        private void resolveImagePlayers(string p)
+        {
+            imgPlayers.Source = new BitmapImage(new Uri(@"pack://application:,,,/BingoServer;component/Resources/"+p+".png"));
+        }
 
     }
 }
