@@ -149,7 +149,7 @@ namespace Server
 
         private void startDrawinTimer()
         {
-            _drawtimer =  new Timer(new TimerCallback(drawANumber), null, 1000, 1000);
+            _drawtimer =  new Timer(new TimerCallback(drawANumber), null, 1000, 10000);
         }
         private void stopDrawinTimer()
         {
