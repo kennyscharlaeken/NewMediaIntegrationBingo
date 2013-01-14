@@ -28,15 +28,15 @@ namespace BingoServer
         private int _players = 0;
 
         private delegate void playerUpdateHandler(Gameplay.Player p, string msg);
-        private delegate void bingoNumberHandler(string number);
+        private delegate void bingoNumberHandler(int number);
 
         public BingoScreen()
         {
             InitializeComponent();
 
             //initIntroScreen();
-            //initGameScreen();
-            initWinScreen();
+            initGameScreen();
+            //initWinScreen();
 
             initEvents();
             txtbVersion.Text = Helper.getVersion();
@@ -99,7 +99,7 @@ namespace BingoServer
         }
         protected void Server_BingoNewNumber(int number)
         {
-            Dispatcher.Invoke(new bingoNumberHandler(updateBingoNumber), number.ToString());
+            Dispatcher.Invoke(new bingoNumberHandler(updateBingoNumber), number);
         }
         protected void _se_PlayerWon(Gameplay.Player p)
         {
@@ -134,7 +134,7 @@ namespace BingoServer
         {
             initGameScreen();
         }
-        private void updateBingoNumber(string number)
+        private void updateBingoNumber(int number)
         {
             _game.setNewestBall(number);
         }

@@ -17,7 +17,7 @@ namespace Server
         public event Action GameStopped;
         public event Action BingoCardsSend;
 
-        public delegate void numberSendHandler(string number);
+        public delegate void numberSendHandler(int number);
         public delegate void newNumberHandler(int number);
         public delegate void playerWonHandler(Player p);
         public event numberSendHandler BingoNumberSend;
@@ -88,7 +88,7 @@ namespace Server
             }
         }
 
-        private void fireBingoNumberSend(string number)
+        private void fireBingoNumberSend(int number)
         {
             if (BingoNumberSend !=null)
             {

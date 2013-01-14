@@ -82,13 +82,22 @@ namespace Server
         {
             //process all messages wether it's a string or bits and bytes , first 2 bytes are code
             string code = Helper.convertToString(new byte[] { msg[0], msg[1] });
-            resolveMessage(code, msg);           
+            resolveMessage(code, msg,bytesread);           
         }
-        private void captureImage(byte[] image)
+        private void captureImage(byte[] image,int bytesread)
         {
-            MemoryStream str = new MemoryStream(image);
-            _player.Image = Image.FromStream(str);
-            str.Flush();
+            byte[] imgb = new byte[bytesread - 2];
+            int index = 0;
+            for (int i = 2; i < bytesread - 2; i++)
+            {
+                imgb[index] = image[i];
+                index++;
+            }
+            Image imgale;
+            using (MemoryStream ImageStream = new System.IO.MemoryStream(imgb))
+            {
+                imgale = Image.FromStream(ImageStream);
+            }
             fireImageUpdated(_player);
         }
       
@@ -104,17 +113,8 @@ namespace Server
         }
         public void sendMessage(object e)
         {
-            try
-            {
-                //byte[] msg = Helper.convertToBytes(Helper.convertToXml(e));
-                byte[] msg = Helper.convertToBytes(e);
-                send(msg);
-            }
-            catch (Exception)
-            {
-                if (_active) throw;
-            }            
-        }        
+            sendMessage(e.ToString());
+        }
         public void sendMessage(string text)
         {
             try

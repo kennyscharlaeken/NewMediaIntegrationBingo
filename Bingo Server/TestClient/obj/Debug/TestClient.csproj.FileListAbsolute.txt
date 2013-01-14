@@ -10,4 +10,3 @@ D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegratio
 D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\TestClient\obj\Debug\TestClient.csproj.GenerateResource.Cache
 D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\TestClient\obj\Debug\TestClient.exe
 D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\TestClient\obj\Debug\TestClient.pdb
-D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\TestClient\obj\Debug\TestClient.csprojResolveAssemblyReference.cache

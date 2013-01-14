@@ -28,7 +28,7 @@ namespace BingoServer.Game
             InitializeComponent();
         }
          
-        public void setNewestBall(string p)
+        public void setNewestBall(int p)
         {
             BitmapImage bmpimgc = null;
             BitmapImage bmpimgnew = new BitmapImage(new Uri(@"pack://application:,,,/BingoServer;component/Resources/" + p + ".png"));

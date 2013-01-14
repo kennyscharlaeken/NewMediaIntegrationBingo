@@ -136,7 +136,7 @@ namespace Server
         }
 
         #region "PEOPLE"
-        public void sendMessageToAdmins(string msg)
+        public void sendMessageToAdmins(object msg)
         {
             var res = from n in _clients
                       where n.Admin == true
@@ -146,7 +146,7 @@ namespace Server
                 ThreadPool.QueueUserWorkItem(new WaitCallback(cl.sendMessage), msg);
             }
         }
-        public void sendMessageToPlayers(object msg)
+        public void sendMessageToPlayers(string msg)
         {
             var res = from n in _clients
                       where n.IsPlayer == true

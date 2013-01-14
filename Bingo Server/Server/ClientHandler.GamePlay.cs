@@ -10,7 +10,7 @@ namespace Server
     {
 
         // Resolve all player en register admin requests
-        private void resolveMessage(string code, byte[] msg)
+        private void resolveMessage(string code, byte[] msg,int bytesread)
         {
             _code = code;
             switch (code)
@@ -18,10 +18,8 @@ namespace Server
                 case ServerCodes.CLIENT_CODE_LOGIN:
                     if (!IsPlayer) onLogin(); else rejectCode();
                     break;
-                case ServerCodes.CLIENT_CODE_PICTURE:
-                    byte[] imgb = new byte[msg.Length+2];
-                    msg.CopyTo(imgb, 1);
-                    captureImage(imgb);
+                case ServerCodes.CLIENT_CODE_PICTURE:                 
+                    captureImage(msg,bytesread);
                     break;
                 case ServerCodes.SERVER_CODE_CLIENT_DC:
                     onDC();

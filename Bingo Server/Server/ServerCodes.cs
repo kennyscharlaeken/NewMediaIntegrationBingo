@@ -13,7 +13,7 @@ namespace Server
         public const string SERVER_CODE_START = "ST";
         public const string SERVER_CODE_PAUSE = "PS";
         public const string SERVER_CODE_RESUME = "RS";
-        public const string SERVER_CODE_STOP = "ST";
+        public const string SERVER_CODE_STOP = "SO";
         public const string SERVER_NO_CODE = "NC";
         public const string SERVER_CODE_WIN = "WI";
         public const string SERVER_CODE_ACK="AK";

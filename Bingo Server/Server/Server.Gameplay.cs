@@ -21,12 +21,13 @@ namespace Server
         private static void drawANumber(object state)
         {
             int number = Gameplay.BingoDrum.Singleton.pickRandomNumber();
+            Server.Singleton.sendBingoNumber(number);
             fireNewBingoNumber(number);
         }
        
         public void startGame()
         {
-            //sendMessageToPlayers(ServerCodes.SERVER_CODE_START);
+            sendMessageToPlayers(ServerCodes.SERVER_CODE_START);
             IsGameStarted = true;
             fireGameStarted();
             startDrawinTimer();
@@ -74,7 +75,7 @@ namespace Server
         public void readyPlayers()
         {
             foreach (ClientHandler cl in _clients)cl.PlayerIsReady += cl_PlayerIsReady;
-            sendMessageToPlayers(ServerCodes.SERVER_CODE_READYP);
+            //sendMessageToPlayers(ServerCodes.SERVER_CODE_READYP);
         }
 
         private void cl_PlayerIsReady()
@@ -97,11 +98,8 @@ namespace Server
                 if (GameWinner == null)
                 {
                     GameWinner = p;
-                    List<byte> msg = new List<byte>();
-                    msg.AddRange(Helper.convertToBytes(ServerCodes.SERVER_CODE_WIN));
-                    // Serialize the player first;
-                    //msg.AddRange(Helper.convertToBytes(p));
-                    sendMessageToPlayers(msg.ToArray());
+                    //Serialize Player !!
+                    sendMessageToPlayers(ServerCodes.SERVER_CODE_WIN);
                     firePlayerWon(p);
                     Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_PLAYER_WON, p));
                     return true;
@@ -132,7 +130,6 @@ namespace Server
             {
                 if (pl.BingoCards != null)
                 {
-                    // Serialize the bingocards first (done) just convert to a string
                     string lists = ServerCodes.SERVER_CODE_CLIENT_CARD + serializeBingoCardsList(pl.BingoCards);
                     sendMessageToPlayer(pl, lists);
                 }// else throw an error or fill in the cards ?
@@ -161,11 +158,9 @@ namespace Server
             _drawtimer.Dispose();
         }
 
-        public void sendBingoNumber(string number)
+        public void sendBingoNumber(int number)
         {
-            List<byte> msg = new List<byte>();
-            msg.AddRange(Helper.convertToBytes(ServerCodes.SERVER_CODE_NUMBER));
-            msg.AddRange(Helper.convertToBytes(number));
+            string msg = ServerCodes.SERVER_CODE_NUMBER + number.ToString();
             sendMessageToPlayers(msg);
             fireBingoNumberSend(number);
             Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_NUMBER_SEND, number, _players.Count()));
