@@ -14,5 +14,6 @@ namespace Server
         private const string MSG_SENDING_BINGOCARDS = "Sending bingocards to {0} player(s)...";
         private const string MSG_CARD_SEND = "Send cards to {0}";
         private const string MSG_NUMBER_SEND = "Send the number {0} to {1} player(s)";
+        private const string MSG_PLAYER_WON = "Player {0} has bingo !";
     }
 }

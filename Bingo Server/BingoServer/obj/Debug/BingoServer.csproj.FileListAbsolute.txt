@@ -40,3 +40,5 @@ D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegratio
 D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\obj\Debug\BingoServer.pdb
 D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\obj\Debug\Game\Elements\GameStartAlert.baml
 D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\obj\Debug\Game\Elements\GameStartAlert.g.cs
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\obj\Debug\Game\WinScreen.baml
+D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\obj\Debug\Game\WinScreen.g.cs

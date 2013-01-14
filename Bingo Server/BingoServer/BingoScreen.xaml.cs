@@ -35,25 +35,27 @@ namespace BingoServer
             InitializeComponent();
 
             //initIntroScreen();
-            initGameScreen();
+            //initGameScreen();
+            initWinScreen();
 
             initEvents();
             txtbVersion.Text = Helper.getVersion();
         }
+
+        
 
         private void initEvents()
         {
             Server.ClientHandler.PlayerJoined += ClientHandler_PlayerJoined;
             Server.ClientHandler.PlayerLeft += ClientHandler_PlayerLeft;
             Server.Server.BingoNewNumber += Server_BingoNewNumber;
+            _se.PlayerWon += _se_PlayerWon;
             _se.GameStarted += _se_GameStarted;            
         }
 
-        private void Server_BingoNewNumber(int number)
-        {
-            _se.sendBingoNumber(number.ToString());
-            Dispatcher.Invoke(new bingoNumberHandler(newBingoNumber),number.ToString());
-        }
+        
+
+        
 
         private void initIntroScreen()
         {
@@ -62,18 +64,23 @@ namespace BingoServer
             // Animate first ?
             ccBingo.Content = _intro;            
         }
-
-        private object getCurrentControl()
-        {
-            return ccBingo.Content;
-        }
-
         private void initGameScreen()
         {
             _game = new Game.GameScreen();
             // Animate first ?
             ccBingo.Content = _game;
         }
+        private void initWinScreen()
+        {
+            ccBingo.Content = new Game.WinScreen();
+        }
+
+        private object getCurrentControl()
+        {
+            return ccBingo.Content;
+        }
+
+        
 
         #region EVENTS
 
@@ -89,6 +96,14 @@ namespace BingoServer
         protected void _se_GameStarted()
         {
             Dispatcher.Invoke(new Action(gameStarted));
+        }
+        protected void Server_BingoNewNumber(int number)
+        {
+            Dispatcher.Invoke(new bingoNumberHandler(updateBingoNumber), number.ToString());
+        }
+        protected void _se_PlayerWon(Gameplay.Player p)
+        {
+            Dispatcher.Invoke(new playerUpdateHandler(updatePlayerWon), p, string.Empty);
         }
 
         // Do the actual updating
@@ -108,11 +123,18 @@ namespace BingoServer
                 _intro.Players = _players;
             }
         }
+        private void updatePlayerWon(Gameplay.Player player, string msg = "")
+        {
+            if (player != null)
+            {
+                
+            }
+        }
         private void gameStarted()
         {
             initGameScreen();
         }
-        private void newBingoNumber(string number)
+        private void updateBingoNumber(string number)
         {
             _game.setNewestBall(number);
         }

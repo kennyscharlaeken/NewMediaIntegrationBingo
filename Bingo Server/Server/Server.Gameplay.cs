@@ -92,15 +92,20 @@ namespace Server
 
         public bool playerWin(Player p)
         {
-            if (GameWinner == null)
+            if (IsGameStarted)
             {
-                GameWinner = p;
-                List<byte> msg = new List<byte>();
-                msg.AddRange(Helper.convertToBytes(ServerCodes.SERVER_CODE_WIN));
-                // Serialize the player first;
-                //msg.AddRange(Helper.convertToBytes(p));
-                sendMessageToPlayers(msg.ToArray());
-                return true;
+                if (GameWinner == null)
+                {
+                    GameWinner = p;
+                    List<byte> msg = new List<byte>();
+                    msg.AddRange(Helper.convertToBytes(ServerCodes.SERVER_CODE_WIN));
+                    // Serialize the player first;
+                    //msg.AddRange(Helper.convertToBytes(p));
+                    sendMessageToPlayers(msg.ToArray());
+                    firePlayerWon(p);
+                    Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_PLAYER_WON, p));
+                    return true;
+                }
             }
             return false;
         }
@@ -163,6 +168,7 @@ namespace Server
             msg.AddRange(Helper.convertToBytes(number));
             sendMessageToPlayers(msg);
             fireBingoNumberSend(number);
+            Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_NUMBER_SEND, number, _players.Count()));
         }
 
     }

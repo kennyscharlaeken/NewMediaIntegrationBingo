@@ -2103,6 +2103,26 @@ namespace BingoServer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap proficiat {
+            get {
+                object obj = ResourceManager.GetObject("proficiat", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap slingers {
+            get {
+                object obj = ResourceManager.GetObject("slingers", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap spelers {
             get {
                 object obj = ResourceManager.GetObject("spelers", resourceCulture);
@@ -2136,6 +2156,16 @@ namespace BingoServer.Properties {
         internal static System.Drawing.Bitmap wait_players {
             get {
                 object obj = ResourceManager.GetObject("wait_players", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap winnaar {
+            get {
+                object obj = ResourceManager.GetObject("winnaar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

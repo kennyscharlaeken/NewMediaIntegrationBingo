@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gameplay;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,9 @@ namespace Server
 
         public delegate void numberSendHandler(string number);
         public delegate void newNumberHandler(int number);
+        public delegate void playerWonHandler(Player p);
         public event numberSendHandler BingoNumberSend;
+        public event playerWonHandler PlayerWon;
         public static event newNumberHandler BingoNewNumber;
 
         private void firePlayersAreReady()
@@ -77,13 +80,20 @@ namespace Server
             }
         }
 
+        private void firePlayerWon(Player p)
+        {
+            if (PlayerWon != null)
+            {
+                PlayerWon.Invoke(p);
+            }
+        }
+
         private void fireBingoNumberSend(string number)
         {
             if (BingoNumberSend !=null)
             {
                 BingoNumberSend.Invoke(number);
             }
-            Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_NUMBER_SEND, number, _players.Count()));
         }
 
     }
