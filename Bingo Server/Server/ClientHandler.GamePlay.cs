@@ -19,10 +19,9 @@ namespace Server
                     if (!IsPlayer) onLogin(); else rejectCode();
                     break;
                 case ServerCodes.CLIENT_CODE_PICTURE:
-                    _bufferoverflow = true;
-                    _code = ServerCodes.CLIENT_CODE_PICTURE;
-                    _overflowsize = int.Parse(Helper.convertToString(new byte[] { msg[2], msg[3], msg[4], msg[5] }));
-                    writeToMemory(msg, 6);
+                    byte[] imgb = new byte[msg.Length+2];
+                    msg.CopyTo(imgb, 1);
+                    captureImage(imgb);
                     break;
                 case ServerCodes.SERVER_CODE_CLIENT_DC:
                     onDC();

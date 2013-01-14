@@ -26,6 +26,9 @@ namespace Server
         private MemoryStream _memstream = new MemoryStream();
         private int _overflowsize = 0;
 
+        //Const
+        private const int BUFFER = 200000;
+
         public bool IsPlayer { get; set; }
 
         public Player Player { get{return _player;}}
@@ -63,10 +66,9 @@ namespace Server
                     _active = true;
                     while (_active)
                     {
-                        byte[] msg = new byte[_client.ReceiveBufferSize];
+                        byte[] msg = new byte[BUFFER];
                         int bytes = _stream.Read(msg, 0, msg.Length);
                         processMessage(msg, bytes);
-                        //msg = null;
                     }
                 }
             }
@@ -79,56 +81,17 @@ namespace Server
         private void processMessage(byte[] msg, int bytesread)
         {
             //process all messages wether it's a string or bits and bytes , first 2 bytes are code
-            //if overflow is set then write it to memory.
-            if (!_bufferoverflow)
-            {
-                string code = Helper.convertToString(new byte[] { msg[0], msg[1] });
-                byte[] newmsg = new byte[bytesread];
-                if (bytesread > 2)
-                {
-                    msg.CopyTo(newmsg, 1);
-                    resolveMessage(code, newmsg);
-                }
-                else resolveMessage(code, msg);
-            }
-            else
-            {
-                writeToMemory(msg);
-            }
+            string code = Helper.convertToString(new byte[] { msg[0], msg[1] });
+            resolveMessage(code, msg);           
         }
-        private void captureImage(Stream str)
+        private void captureImage(byte[] image)
         {
+            MemoryStream str = new MemoryStream(image);
             _player.Image = Image.FromStream(str);
             str.Flush();
             fireImageUpdated(_player);
         }
-
-        private bool detectEndOfFile(byte[] msg)
-        {
-            string ef = Helper.convertToString(new byte[] { msg[msg.Length - 2], msg[msg.Length - 1] });
-            return ef.Equals(ServerCodes.CLIENT_CODE_END_FILE);
-        }
-
-        private void writeToMemory(byte[] msg, int offset=0)
-        { 
-            int bytestowrite = msg.Length-offset;
-            _memstream.Write(msg, offset, bytestowrite);
-            _overflowsize -= bytestowrite;
-            if (_overflowsize <= 0) overflowClear(_memstream);
-        }
-
-        private void overflowClear(Stream str)
-        {
-            switch (_code)
-            {
-                case ServerCodes.CLIENT_CODE_PICTURE:
-                    captureImage(str);
-                    break;  
-                default:
-                    break;
-            }
-        }
-
+      
         private void send(byte[] buffer)
         {
             if (_active)

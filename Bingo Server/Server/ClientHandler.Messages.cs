@@ -9,7 +9,6 @@ namespace Server
     public partial class ClientHandler
     {
         // MESSAGES
-        private const int BUFFER_SIZE = 1024;
         private const string MSG_JOINED = "Player \"{0}\" joined.";
         private const string MSG_LEFT = "Player \"{0}\" has left.";
         private const string MSG_IMAGE = "Player \"{0}\" has changed his picture.";
