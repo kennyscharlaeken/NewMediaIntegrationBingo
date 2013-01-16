@@ -88,6 +88,7 @@ namespace Server
                     foreach (ClientHandler cl in _clients)cl.PlayerIsReady -= cl_PlayerIsReady;
                     firePlayersAreReady();
                 }
+                _plready = 0;
             }
         }
 
@@ -99,7 +100,7 @@ namespace Server
                 {
                     GameWinner = p;
                     //Serialize Player !!
-                    sendMessageToPlayers(ServerCodes.SERVER_CODE_WIN);
+                    sendMessageToPlayers(ServerCodes.SERVER_CODE_WIN+Helper.convertImgToString(p.Image));
                     firePlayerWon(p);
                     Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_PLAYER_WON, p));
                     return true;

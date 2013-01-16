@@ -28,7 +28,6 @@
         <WrapPanel Name="wpLastBalls" Grid.Row="3" Margin="10,0,0,0" >
             
         </WrapPanel>
-        <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="155,254,0,0" Grid.Row="3" VerticalAlignment="Top" Width="148" Height="56" Click="Button_Click_1"/>
     </Grid>
 
 </UserControl>

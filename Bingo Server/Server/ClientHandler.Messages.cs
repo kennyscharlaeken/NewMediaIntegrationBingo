@@ -16,5 +16,6 @@ namespace Server
         private const string MSG_OP = "Player \"{0}\" made OP";
         private const string MSG_CODE_REJECTED = "Rejected code \"{0}\" from \"{1}\" ";
         private const string MSG_BINGO = "Player \"{0}\" is the first who called BINGO";
+        private const string MSG_CONDC = "Player {0} has dropped connection !";
     }
 }

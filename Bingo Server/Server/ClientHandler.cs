@@ -74,7 +74,12 @@ namespace Server
             }
             catch (Exception ex)
             {
-                if (_active) throw;
+                if (_active)
+                {
+                    Debug.Singleton.sendDebugMessage(DEBUGLEVELS.ERROR, String.Format(MSG_CONDC,_player.Ip));
+                    _server.removePlayer(_player);
+                    _server.removeClient(this);
+                }
             }
         }
 
@@ -122,9 +127,12 @@ namespace Server
                 byte[] msg = Helper.convertToBytes(text);
                 send(msg);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                if (_active) throw;
+                if (_active)
+                {
+                    Debug.Singleton.sendDebugMessage(DEBUGLEVELS.ERROR, ex.Message);
+                }
             }
         }
 
@@ -149,8 +157,8 @@ namespace Server
                 if(removeself)Server.Singleton.removeClient(this);                
             }
             catch (Exception ex)
-            {                
-                throw;
+            {
+                Debug.Singleton.sendDebugMessage(DEBUGLEVELS.ERROR, ex.Message);
             }
         }
 

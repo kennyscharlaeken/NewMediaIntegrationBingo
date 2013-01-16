@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -45,6 +47,13 @@ namespace Server
             return new ASCIIEncoding().GetString(a);
         }
 
+        internal static string convertImgToString(Image img)
+        {
+            MemoryStream ms = new MemoryStream();
+            img.Save(ms, ImageFormat.Bmp);
+            return convertToString(ms.ToArray());
+        }
+
         internal static string convertNumberList(IEnumerable<object> list)
         {
             string result = "";
@@ -69,11 +78,6 @@ namespace Server
             }
             return xml;
         }
-
-        
-
-
-
 
     }
 }

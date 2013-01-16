@@ -71,9 +71,12 @@ namespace Server
                     }
                 } 
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                if (_listen) throw;
+                if (_listen)
+                {
+                    Debug.Singleton.sendDebugMessage(DEBUGLEVELS.ERROR, ex.Message);
+                }
             }
         }
 
@@ -87,9 +90,9 @@ namespace Server
                 _clients.Clear();                
                 Debug.Singleton.sendDebugMessage(DEBUGLEVELS.WARNING, MSG_SERVER_STOP);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                Debug.Singleton.sendDebugMessage(DEBUGLEVELS.ERROR, ex.Message);
             }
         }
 

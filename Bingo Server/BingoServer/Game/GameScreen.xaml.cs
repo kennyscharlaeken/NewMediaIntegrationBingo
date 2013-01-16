@@ -44,10 +44,11 @@ namespace BingoServer.Game
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        internal void resset()
         {
-            Server.Server.Singleton.startGame();
+            imgLastBall.Source = null;
+            wpLastBalls.Children.Clear();
+            _numbersimages.Clear();            
         }
-
     }
 }
