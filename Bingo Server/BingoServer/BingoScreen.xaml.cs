@@ -50,11 +50,14 @@ namespace BingoServer
         {
             Server.ClientHandler.PlayerJoined += ClientHandler_PlayerJoined;
             Server.ClientHandler.PlayerLeft += ClientHandler_PlayerLeft;
+            Server.ClientHandler.PlayerDropped += ClientHandler_PlayerDropped;
             Server.Server.BingoNewNumber += Server_BingoNewNumber;
             _se.PlayerWon += _se_PlayerWon;
             _se.GameStarted += _se_GameStarted;
             _wintimer.Elapsed += _wintimer_Elapsed;
         }
+
+      
 
         private void initIntroScreen()
         {
@@ -105,9 +108,18 @@ namespace BingoServer
         {
             Dispatcher.Invoke(new playerUpdateHandler(updatePlayerWon), p, string.Empty);
         }
+        protected void ClientHandler_PlayerDropped(Gameplay.Player player, string msg = "")
+        {
+            Dispatcher.Invoke(new playerUpdateHandler(updatePlayerLeft), player, msg);
+        }
         protected void _wintimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             _wintimer.Stop();
+            Dispatcher.Invoke(new Action(ressetAll));
+        }
+
+        private void ressetAll()
+        {
             _game.resset();
             ccBingo.Content = _game;
         }

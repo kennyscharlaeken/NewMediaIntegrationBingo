@@ -97,8 +97,8 @@
     </Compile>
     <Compile Include="GameConsole.commands.cs" />
     <Compile Include="GameConsole.cs" />
-    <Compile Include="Game\Elements\GameStartAlert.xaml.cs">
-      <DependentUpon>GameStartAlert.xaml</DependentUpon>
+    <Compile Include="Game\Elements\bingoAlerts.xaml.cs">
+      <DependentUpon>bingoAlerts.xaml</DependentUpon>
     </Compile>
     <Compile Include="Game\GameScreen.xaml.cs">
       <DependentUpon>GameScreen.xaml</DependentUpon>
@@ -114,7 +114,7 @@
       <DependentUpon>BingoServerMain.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Game\Elements\GameStartAlert.xaml">
+    <Page Include="Game\Elements\bingoAlerts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1245,6 +1245,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

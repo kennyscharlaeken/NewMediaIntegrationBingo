@@ -31,6 +31,7 @@ namespace Server
             IsGameStarted = true;
             fireGameStarted();
             startDrawinTimer();
+            Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, MSG_GAME_START);
         }
 
         public void pauseGame()
@@ -39,6 +40,7 @@ namespace Server
             IsGamePaused = true;
             fireGamePaused();
             stopDrawinTimer();
+            Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, MSG_GAME_PAUSED);
         }
 
         public void resumeGame()
@@ -47,6 +49,7 @@ namespace Server
             IsGamePaused = false;
             fireGameResumed();
             startDrawinTimer();
+            Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, MSG_GAME_RESUME);
         }
 
         public void stopGame()
@@ -55,7 +58,8 @@ namespace Server
             sendMessageToPlayers(ServerCodes.SERVER_CODE_STOP);
             IsGamePaused = false;
             IsGameStarted = false;
-            fireGameStopped();            
+            fireGameStopped();
+            Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, MSG_GAME_STOPPED);
         }
 
         public void generateBingoCards()
@@ -100,7 +104,9 @@ namespace Server
                 {
                     GameWinner = p;
                     //Serialize Player !!
-                    sendMessageToPlayers(ServerCodes.SERVER_CODE_WIN+Helper.convertImgToString(p.Image));
+                    sendMessageToPlayer(p,ServerCodes.SERVER_CODE_ACK);
+                    //sendMessageToPlayers(ServerCodes.SERVER_CODE_WIN+Helper.convertImgToString(p.Image));
+                    sendMessageToPlayers(ServerCodes.SERVER_CODE_WIN);
                     firePlayerWon(p);
                     Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_PLAYER_WON, p));
                     return true;
@@ -152,7 +158,7 @@ namespace Server
 
         private void startDrawinTimer()
         {
-            _drawtimer =  new Timer(new TimerCallback(drawANumber), null, 10000, 100000);
+            _drawtimer =  new Timer(new TimerCallback(drawANumber), null, 10000, 10000);
         }
         private void stopDrawinTimer()
         {

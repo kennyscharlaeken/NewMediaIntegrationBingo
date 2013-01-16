@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\PIH\New Media Integration\Project\NewMediaIntegrationBingo\NewMediaIntegrationBingo\Bingo Server\BingoServer\App.xaml
-71260937617
+7-861598431
 
-19-1131754041
+19-593471590
 151161052563
-BingoScreen.xaml;Debugger\DebugConsole.xaml;BingoServerMain.xaml;Game\Elements\GameStartAlert.xaml;Game\GameScreen.xaml;Game\IntroScreen.xaml;Game\WinScreen.xaml;
+BingoScreen.xaml;Debugger\DebugConsole.xaml;BingoServerMain.xaml;Game\Elements\bingoAlerts.xaml;Game\GameScreen.xaml;Game\IntroScreen.xaml;Game\WinScreen.xaml;
 
 False
 

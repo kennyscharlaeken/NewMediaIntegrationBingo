@@ -76,7 +76,7 @@ namespace Server
             {
                 if (_active)
                 {
-                    Debug.Singleton.sendDebugMessage(DEBUGLEVELS.ERROR, String.Format(MSG_CONDC,_player.Ip));
+                    firePlayerDropped(_player);
                     _server.removePlayer(_player);
                     _server.removeClient(this);
                 }
@@ -103,6 +103,7 @@ namespace Server
             {
                 imgale = Image.FromStream(ImageStream);
             }
+            _player.Image = imgale;
             fireImageUpdated(_player);
         }
       
@@ -131,6 +132,7 @@ namespace Server
             {
                 if (_active)
                 {
+                    firePlayerDropped(_player);
                     Debug.Singleton.sendDebugMessage(DEBUGLEVELS.ERROR, ex.Message);
                 }
             }

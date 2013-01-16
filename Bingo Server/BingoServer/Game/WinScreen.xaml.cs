@@ -30,17 +30,21 @@ namespace BingoServer.Game
         {
             set
             {
-                BitmapImage bitmapImage = new BitmapImage();
-                using (MemoryStream memory = new MemoryStream())
+                try
                 {
-                    value.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-                    memory.Position = 0;
-                    bitmapImage.BeginInit();
-                    bitmapImage.StreamSource = memory;
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.EndInit();
+                    BitmapImage bitmapImage = new BitmapImage();
+                    System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(value);
+                    IntPtr hBitmap = bmp.GetHbitmap();
+                    System.Windows.Media.ImageSource WpfBitmap = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+
+                    imgPlayer.Source = WpfBitmap;
+                    imgPlayer.Stretch = Stretch.Uniform;
+
                 }
-                imgPlayer.Source = bitmapImage;
+                catch (Exception)
+                {
+                   //something failed
+                }
             }
         }
 

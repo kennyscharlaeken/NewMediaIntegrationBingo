@@ -15,5 +15,9 @@ namespace Server
         private const string MSG_CARD_SEND = "Send cards to {0}";
         private const string MSG_NUMBER_SEND = "Send the number {0} to {1} player(s)";
         private const string MSG_PLAYER_WON = "Player {0} has bingo !";
+        private const string MSG_GAME_START = "Game has started !";
+        private const string MSG_GAME_STOPPED = "Game has stopped.";
+        private const string MSG_GAME_PAUSED = "Game has been paused.";
+        private const string MSG_GAME_RESUME = "Game has been resumed.";
     }
 }

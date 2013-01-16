@@ -18,6 +18,7 @@ namespace Server
         public static event playerUpdateHandler PlayerOped;
         public static event playerUpdateHandler PlayerCodeRejected;
         public static event playerUpdateHandler PlayerCalledBingo;
+        public static event playerUpdateHandler PlayerDropped;
 
         public event Action PlayerIsReady;
 
@@ -82,6 +83,15 @@ namespace Server
                 PlayerCalledBingo.Invoke(player);
             }
             Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_BINGO, player.ToString()));
+        }
+
+        private void firePlayerDropped(Player player)
+        {
+            if(PlayerDropped !=null)
+            {
+                PlayerDropped.Invoke(player,"player dropped");
+            }
+            Debug.Singleton.sendDebugMessage(DEBUGLEVELS.ERROR, String.Format(MSG_CONDC, _player.Ip));
         }
 
         private void firePlayerReady()

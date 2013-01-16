@@ -115,7 +115,15 @@ namespace Server
         {
             if (IsPlayer)
             {
-                if (!_server.playerWin(_player)) rejectCode(); else firePlayerCalledBingo(_player);
+                if (!_server.playerWin(_player))
+                {
+                    rejectCode();
+                }
+                else
+                {
+                    _server.stopGame();
+                    firePlayerCalledBingo(_player);
+                }
             }
             else rejectCode();
         }

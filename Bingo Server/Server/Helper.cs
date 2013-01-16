@@ -49,9 +49,15 @@ namespace Server
 
         internal static string convertImgToString(Image img)
         {
-            MemoryStream ms = new MemoryStream();
-            img.Save(ms, ImageFormat.Bmp);
-            return convertToString(ms.ToArray());
+            byte[] byteArray = new byte[0];
+            using (MemoryStream stream = new MemoryStream())
+            {
+                img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                stream.Close();
+
+                byteArray = stream.ToArray();
+            }
+            return Helper.convertToString(byteArray);
         }
 
         internal static string convertNumberList(IEnumerable<object> list)

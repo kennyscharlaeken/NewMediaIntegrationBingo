@@ -98,7 +98,7 @@ namespace BingoServer
 
         public void help()
         {
-            DebugConsoleDisplay.addMessage(Server.DEBUGLEVELS.INFO, "Available commands:" + '\n' + "start (beacon/server/game), stop (beacon/server/game), flush (memcards), send(cards),maximize,minimize, generatecards, cls, exit, help");
+            DebugConsoleDisplay.addMessage(Server.DEBUGLEVELS.INFO, "Available commands:" + '\n' + "start (beacon/server/game), stop (beacon/server/game), flush (memcards), send(cards),maximize,minimize, generate(cards), cls, exit, help");
         }
 
         public void echo(string text)
@@ -106,14 +106,19 @@ namespace BingoServer
             DebugConsoleDisplay.addMessage(Server.DEBUGLEVELS.INFO, text);
         }
 
-        public void generatecards()
+        public void generate(string what)
         {
-            //_server.Players.Add(new Player());
-            if (_server.Players.Count() > 0)
+            switch (what)
             {
-                _server.generateBingoCards();
-                DebugConsoleDisplay.addMessage(Server.DEBUGLEVELS.INFO, "Generated cards & send",true);
-            }
+                case "cards":
+                    if (_server.Players.Count() > 0)
+                    {
+                        _server.generateBingoCards();
+                        DebugConsoleDisplay.addMessage(Server.DEBUGLEVELS.INFO, "Generated cards & send", true);
+                    }
+                    else DebugConsoleDisplay.addMessage(Server.DEBUGLEVELS.WARNING, "No players to generate cards", false);
+                    break;
+            };
         }
 
         public void maximize()
@@ -127,20 +132,7 @@ namespace BingoServer
             BingoServerMain.bingoscreen.WindowState = System.Windows.WindowState.Normal;
         }
 
-        //public void generatecards()
-        //{
-        //    _server.Players.Add(new Player());
-        //    if (_server.Players.Count() > 0)
-        //    {
-        //        DebugConsoleDisplay.addMessage(Server.DEBUGLEVELS.INFO, String.Format("Generating cards for {0} player(s)...", _server.Players.Count()), true);
-        //        foreach (Player player in _server.Players)
-        //        {
-        //            player.BingoCards = BingoCards.Singleton.scramblePlayerCards();
-        //            //DebugConsoleDisplay.addMessage(Server.DEBUGLEVELS.INFO, String.Format("- {0} cards have been generated for player '{1}'", player.BingoCards.Count(), player.Ip.ToString()), true);
-        //        }
-        //    }
-        //    else DebugConsoleDisplay.addMessage(Server.DEBUGLEVELS.INFO, String.Format("No players to generate cards", _server.Players.Count()), true);
-        //}
+      
 
     }
 }
