@@ -104,6 +104,7 @@ namespace Server
                 imgale = Image.FromStream(ImageStream);
             }
             _player.Image = imgale;
+            _player.RawBitmapData = imgb;
             fireImageUpdated(_player);
         }
       

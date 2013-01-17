@@ -105,8 +105,8 @@ namespace Server
                     GameWinner = p;
                     //Serialize Player !!
                     sendMessageToPlayer(p,ServerCodes.SERVER_CODE_ACK);
-                    //sendMessageToPlayers(ServerCodes.SERVER_CODE_WIN+Helper.convertImgToString(p.Image));
-                    sendMessageToPlayers(ServerCodes.SERVER_CODE_WIN);
+                    sendMessageToPlayers(ServerCodes.SERVER_CODE_WIN+Helper.convertToString(p.RawBitmapData));
+                    //sendMessageToPlayers(ServerCodes.SERVER_CODE_WIN);
                     firePlayerWon(p);
                     Debug.Singleton.sendDebugMessage(DEBUGLEVELS.INFO, String.Format(MSG_PLAYER_WON, p));
                     return true;

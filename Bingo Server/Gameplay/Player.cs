@@ -16,6 +16,8 @@ namespace Gameplay
 
         public List<BingoCard> BingoCards { get; set; }
 
+        public byte[] RawBitmapData { get; set; }
+
         public override string ToString()
         {
             return Ip.ToString();
